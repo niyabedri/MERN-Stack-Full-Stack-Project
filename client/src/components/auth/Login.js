@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import { loginUser } from "../../actions/authActions";
-
+import TextFieldGroup from "../common/TextFieldGroup";
 class Login extends Component {
   constructor() {
     super();
@@ -16,6 +16,11 @@ class Login extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      window.location.href = "/dashboard";
+    }
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
@@ -54,6 +59,14 @@ class Login extends Component {
                 Sign in to your DevConnector account
               </p>
               <form onSubmit={this.onSubmit}>
+                <TextFieldGroup
+                  placeholder="Email Address"
+                  name="Email"
+                  type="email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+                  error={errors.email}
+                />
                 <div className="form-group">
                   <input
                     type="email"
