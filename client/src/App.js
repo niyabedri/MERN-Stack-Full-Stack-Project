@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
-import { setCurrentUser } from "./actions/authActions";
+import { logoutUser, setCurrentUser } from "./actions/authActions";
 
 import { Provider } from "react-redux"; // provides our app with a store
 import store from "./store";
@@ -23,6 +23,15 @@ if (localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
   //set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
+
+  //check for expired token
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    //logout user
+    store.dispatch(logoutUser());
+
+    window.location.href = "/login";
+  }
 }
 
 export default class App extends Component {
