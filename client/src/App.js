@@ -12,8 +12,10 @@ import Footer from "../src/components/layout/Footer";
 import Landing from "../src/components/layout/Landing";
 import Register from "../src/components/auth/Register";
 import Login from "../src/components/auth/Login";
+import Dashboard from "../src/components/dashboard/Dashboard";
 
 import "./App.css";
+import { clearCurrentProfile } from "./actions/profileActions";
 
 //check for token
 if (localStorage.jwtToken) {
@@ -29,6 +31,9 @@ if (localStorage.jwtToken) {
   if (decoded.exp < currentTime) {
     //logout user
     store.dispatch(logoutUser());
+
+    // clear current profile
+    store.dispatch(clearCurrentProfile());
 
     window.location.href = "/login";
   }
@@ -46,6 +51,7 @@ export default class App extends Component {
               {/* <div> */}
               <Route exact path="/register" element={<Register />} />
               <Route exact path="/login" element={<Login />} />
+              <Route exact path="/dashboard" element={<Dashboard />} />
               {/* </div> */}
             </Routes>
             <Footer />
