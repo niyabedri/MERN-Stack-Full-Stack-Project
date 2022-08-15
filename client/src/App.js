@@ -7,12 +7,16 @@ import { logoutUser, setCurrentUser } from "./actions/authActions";
 import { Provider } from "react-redux"; // provides our app with a store
 import store from "./store";
 
+import ProtectedRoute from "./components/common/ProtectedRoute";
+
 import Navbar from "../src/components/layout/Navbar";
 import Footer from "../src/components/layout/Footer";
 import Landing from "../src/components/layout/Landing";
 import Register from "../src/components/auth/Register";
 import Login from "../src/components/auth/Login";
 import Dashboard from "../src/components/dashboard/Dashboard";
+import CreateProfile from "../src/components/create-profile/CreateProfile";
+
 
 import "./App.css";
 import { clearCurrentProfile } from "./actions/profileActions";
@@ -48,11 +52,24 @@ export default class App extends Component {
             <Navbar />
             <Routes>
               <Route exact path="/" element={<Landing />} />
-              {/* <div> */}
               <Route exact path="/register" element={<Register />} />
               <Route exact path="/login" element={<Login />} />
-              <Route exact path="/dashboard" element={<Dashboard />} />
-              {/* </div> */}
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/create-profile"
+                element={
+                  <ProtectedRoute>
+                    <CreateProfile />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
             <Footer />
           </div>
