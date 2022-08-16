@@ -18,6 +18,19 @@ export const getCurrentProfile = () => (dispatch) => {
     });
 };
 
+//Create profile
+export const createProfile = (profileData) => (dispatch) => {
+  axios
+    .post("/api/profile", profileData)
+    .then((res) => (window.location.href = "/dashboard"))
+    .catch((err) =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: err.response.data,
+      })
+    );
+};
+
 //profile loading
 export const setProfileLoading = () => {
   return {
