@@ -17,9 +17,14 @@ import Login from "../src/components/auth/Login";
 import Dashboard from "../src/components/dashboard/Dashboard";
 import CreateProfile from "../src/components/create-profile/CreateProfile";
 
-
 import "./App.css";
 import { clearCurrentProfile } from "./actions/profileActions";
+import EditProfile from "./components/edit-profile/EditProfile";
+import AddExperience from "./components/add-credential/AddExperience";
+import AddEducation from "./components/add-credential/AddEducation";
+import Profiles from "./components/profiles/Profiles";
+import Profile from "./components/profile/Profile";
+import Posts from "./components/posts/Posts";
 
 //check for token
 if (localStorage.jwtToken) {
@@ -54,6 +59,9 @@ export default class App extends Component {
               <Route exact path="/" element={<Landing />} />
               <Route exact path="/register" element={<Register />} />
               <Route exact path="/login" element={<Login />} />
+              <Route exact path="/profiles" element={<Profiles />} />
+              <Route exact path="/profile/:handle" element={<Profile />} />
+
               <Route
                 path="/dashboard"
                 element={
@@ -70,7 +78,41 @@ export default class App extends Component {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/edit-profile"
+                element={
+                  <ProtectedRoute>
+                    <EditProfile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/add-experience"
+                element={
+                  <ProtectedRoute>
+                    <AddExperience />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/add-education"
+                element={
+                  <ProtectedRoute>
+                    <AddEducation />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/feed"
+                element={
+                  <ProtectedRoute>
+                    <Posts />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
+
             <Footer />
           </div>
         </Router>
