@@ -64,12 +64,10 @@ router.get("/all", (req, res) => {
 
 router.get("/handle/:handle", (req, res) => {
   const errors = {};
-  console.log("req", req.params.handle);
 
   Profile.findOne({ handle: req.params.handle })
     .populate("user", ["name", "avatar"])
     .then((profile) => {
-      console.log("PR", profile);
       if (!profile) {
         errors.noprofile = "There is no profile for this user with the handle";
         res.status(404).json(errors);
@@ -86,12 +84,10 @@ router.get("/handle/:handle", (req, res) => {
 
 router.get("/user/:user_id", (req, res) => {
   const errors = {};
-  console.log("req", req.params.handle);
 
   Profile.findOne({ user: req.params.user_id })
     .populate("user", ["name", "avatar"])
     .then((profile) => {
-      console.log("PR", profile);
       if (!profile) {
         errors.noprofile = "There is no profile for this user with the handle";
         res.status(404).json(errors);
@@ -136,7 +132,6 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors);
     }
-    console.log("is profile vladin ", errors);
 
     //Get fields
     const profileFields = {};
@@ -198,7 +193,6 @@ router.post(
   "/experience",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log("Req", req.body);
     const { errors, isValid } = validateExperienceInput(req.body);
     if (!isValid) {
       return res.status(400).json(errors);
@@ -228,7 +222,6 @@ router.post(
   "/education",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log("Req", req.body);
     const { errors, isValid } = validateEducationInput(req.body);
     if (!isValid) {
       return res.status(400).json(errors);
