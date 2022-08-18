@@ -25,6 +25,7 @@ import AddEducation from "./components/add-credential/AddEducation";
 import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
 import Posts from "./components/posts/Posts";
+import Post from "./components/post/Post";
 
 //check for token
 if (localStorage.jwtToken) {
@@ -108,6 +109,14 @@ export default class App extends Component {
                 element={
                   <ProtectedRoute>
                     <Posts />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/post/:id"
+                element={
+                  <ProtectedRoute>
+                    <Post />
                   </ProtectedRoute>
                 }
               />
